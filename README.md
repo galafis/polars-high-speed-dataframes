@@ -4,6 +4,10 @@
 ![Polars](https://img.shields.io/badge/DataFrames-Polars-FF4500?style=for-the-badge&logo=polars&logoColor=white)
 ![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid-orange?style=for-the-badge&logo=mermaid&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/galafis/polars-high-speed-dataframes?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/galafis/polars-high-speed-dataframes?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/galafis/polars-high-speed-dataframes?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/galafis/polars-high-speed-dataframes?style=for-the-badge)
 
 ---
 
@@ -13,7 +17,7 @@ Este repositório explora e demonstra o uso da biblioteca **Polars para processa
 
 ### 🎯 Objetivo
 
-O principal objetivo deste projeto é **fornecer exemplos práticos, benchmarks e tutoriais detalhados** para profissionais de dados que desejam migrar ou integrar Polars em seus fluxos de trabalho. Serão abordados desde os conceitos fundamentais de DataFrames em Polars até técnicas avançadas de otimização, integração com outras bibliotecas e comparação de performance com outras ferramentas, com foco em **operações de I/O eficientes, transformações complexas e avaliação lazy**.
+O principal objetivo deste projeto é **fornecer exemplos práticos, benchmarks e tutoriais detalhados** para profissionais de dados que desejam migrar ou integrar Polars em seus fluxos de trabalho. Serão abordados desde os conceitos fundamentais de DataFrames em Polars até técnicas avançadas de otimização, integração com outras bibliotecas e comparação de performance com outras ferramentas, com foco em **operacões de I/O eficientes, transformações complexas e avaliação lazy**.
 
 ### ✨ Destaques
 
@@ -25,6 +29,7 @@ O principal objetivo deste projeto é **fornecer exemplos práticos, benchmarks 
 - **API Intuitiva**: Exemplos que mostram a simplicidade e expressividade da API do Polars, facilitando a transição para usuários de Pandas.
 - **Código Profissional**: Exemplos de código bem estruturados, seguindo as melhores práticas da indústria, com foco em modularidade, reusabilidade e manutenibilidade.
 - **Documentação Completa**: Cada exemplo é acompanhado de documentação detalhada, benchmarks e casos de uso práticos para facilitar a compreensão e a aplicação.
+- **Módulo de Exemplo Avançado**: Um novo módulo (`advanced_example.py`) foi adicionado para demonstrar funcionalidades mais complexas e cenários de uso real, incluindo geração de dados simulados, processamento de vendas e análise de clientes.
 
 ### 🚀 Benefícios do Polars em Ação
 
@@ -62,6 +67,7 @@ The main objective of this project is to **provide practical examples, benchmark
 - **Intuitive API**: Examples showcasing the simplicity and expressiveness of the Polars API, making it easy for Pandas users to transition.
 - **Professional Code**: Well-structured code examples, following industry best practices, with a focus on modularity, reusability, and maintainability.
 - **Complete Documentation**: Each example is accompanied by detailed documentation, benchmarks, and practical use cases to facilitate understanding and application.
+- **Advanced Example Module**: A new module (`advanced_example.py`) has been added to demonstrate more complex functionalities and real-world use cases, including simulated data generation, sales processing, and customer analysis.
 
 ### 📊 Visualization
 
@@ -89,15 +95,18 @@ The main objective of this project is to **provide practical examples, benchmark
 ```
 polars-high-speed-dataframes/
 ├── src/
-│   ├── __init__.py
-│   └── polars_demo.py           # Lógica principal com exemplos de uso do Polars
-├── data/                        # Dados de exemplo (CSV, Parquet) para benchmarks e testes
-├── images/                      # Imagens e gráficos para o README e documentação
-├── tests/                       # Testes unitários e de integração para as implementações
-├── docs/                        # Documentação adicional, tutoriais e guias de performance
-├── scripts/                     # Scripts utilitários para automação e execução de benchmarks
-├── requirements.txt             # Dependências Python
-└── README.md                    # Este arquivo
+│   ├── core/                      # Módulos principais com a lógica central do Polars
+│   │   └── polars_demo.py
+│   ├── examples/                  # Módulos de exemplo avançados e casos de uso
+│   │   └── advanced_example.py
+│   └── __init__.py                # Para permitir importações de módulos internos
+├── data/                          # Dados de exemplo (CSV, Parquet) para benchmarks e testes
+├── images/                        # Imagens e gráficos para o README e documentação
+├── tests/                         # Testes unitários e de integração para as implementações
+├── docs/                          # Documentação adicional, tutoriais e guias de performance
+├── scripts/                       # Scripts utilitários para automação e execução de benchmarks
+├── requirements.txt               # Dependências Python
+└── README.md                      # Este arquivo
 ```
 
 ---
@@ -123,96 +132,28 @@ pip install -r requirements.txt
 
 ### Exemplo de Uso Avançado (Python)
 
-O exemplo abaixo demonstra a inicialização da classe `PolarsProcessor`, a criação de DataFrames, operações de agrupamento e agregação, adição de novas colunas, operações encadeadas, avaliação lazy complexa, joins com outros DataFrames e cálculo de correlação. Este código ilustra a flexibilidade e o poder do Polars para manipulação de dados de alta performance.
+O exemplo abaixo demonstra a inicialização da classe `AdvancedPolarsProcessor`, a criação de DataFrames com dados simulados, operações de agrupamento e agregação, adição de novas colunas, operações encadeadas, avaliação lazy complexa, joins com outros DataFrames e cálculo de correlação. Este código ilustra a flexibilidade e o poder do Polars para manipulação de dados de alta performance.
 
 ```python
 import polars as pl
-from src.polars_demo import PolarsProcessor
+from src.examples.advanced_example import AdvancedPolarsProcessor
 import os
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("Polars High-Speed DataFrames Demo")
+    print("Polars High-Speed DataFrames Advanced Demo")
     print("=" * 60)
 
-    processor = PolarsProcessor()
+    processor = AdvancedPolarsProcessor()
 
-    # Criar um DataFrame de exemplo
-    data = {
-        "name": ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi"],
-        "age": [25, 30, 35, 28, 40, 22, 32, 45],
-        "city": ["New York", "London", "New York", "Paris", "London", "New York", "Paris", "London"],
-        "salary": [50000, 70000, 60000, 55000, 80000, 45000, 65000, 90000]
-    }
-    df = pl.DataFrame(data)
-    print("\nOriginal DataFrame:")
-    print(df)
+    # Gerar e carregar dados de exemplo
+    sales_df, customer_df = processor.create_sample_data()
 
-    # --- 1. Agrupar e agregar ---
-    print("\n--- 1. Média salarial por cidade: ---")
-    avg_salary_df = processor.group_and_aggregate(df)
-    print(avg_salary_df)
-
-    # --- 2. Adicionar coluna de bônus ---
-    print("\n--- 2. DataFrame com bônus (10%): ---")
-    df_with_bonus = processor.add_bonus_column(df, 0.10)
-    print(df_with_bonus)
-
-    # --- 3. Operações encadeadas ---
-    print("\n--- 3. Operações encadeadas (idade > 25, 5% bônus): ---")
-    chained_df = processor.chain_operations(df, 25, 0.05)
-    print(chained_df)
-
-    # --- 4. Avaliação Lazy Complexa ---
-    print("\n--- 4. Avaliação Lazy Complexa (idade > 25, avg_salary_city < 60000): ---")
-    complex_lazy_df = processor.complex_lazy_evaluation(df, 25, 60000)
-    print(complex_lazy_df)
-
-    # --- 5. Join com outro DataFrame ---
-    print("\n--- 5. DataFrame após join com informações de departamento: ---")
-    other_data = {
-        "name": ["Alice", "Bob", "Charlie", "David", "Eve"],
-        "department": ["HR", "Engineering", "Sales", "Marketing", "Engineering"]
-    }
-    other_df = pl.DataFrame(other_data)
-    joined_df = processor.join_with_another_dataframe(df, other_df, "name")
-    print(joined_df)
-
-    # --- 6. Calcular correlação ---
-    print("\n--- 6. Correlação entre idade e salário: ---")
-    correlation = processor.calculate_correlation(df, "age", "salary")
-    print(f"  Correlação: {correlation:.2f}")
-
-    # --- 7. Leitura e Escrita de Arquivos (CSV e Parquet) ---
-    print("\n--- 7. Demonstração de Leitura e Escrita de Arquivos ---")
-    # Criar um arquivo CSV de exemplo
-    csv_file = "data/sample.csv"
-    df.write_csv(csv_file)
-    print(f"  DataFrame salvo em {csv_file}")
-
-    # Ler o arquivo CSV
-    read_csv_df = processor.read_csv_file(csv_file)
-    print("  DataFrame lido de CSV:")
-    print(read_csv_df)
-
-    # Criar um arquivo Parquet de exemplo
-    parquet_file = "data/sample.parquet"
-    df.write_parquet(parquet_file)
-    print(f"  DataFrame salvo em {parquet_file}")
-
-    # Ler o arquivo Parquet
-    read_parquet_df = processor.read_parquet_file(parquet_file)
-    print("  DataFrame lido de Parquet:")
-    print(read_parquet_df)
-
-    # Limpar arquivos gerados
-    if os.path.exists(csv_file):
-        os.remove(csv_file)
-    if os.path.exists(parquet_file):
-        os.remove(parquet_file)
+    # Processar os dados de vendas
+    sales_summary, top_customers, daily_sales = processor.process_sales_data(sales_df, customer_df)
 
     print("\n==================================================")
-    print("Demonstração Concluída.")
+    print("Demonstração Avançada Concluída.")
     print("==================================================")
 ```
 
@@ -231,3 +172,4 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 ---
 
 **Autor:** Gabriel Demetrios Lafis  \n**Ano:** 2025
+
