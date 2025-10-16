@@ -50,7 +50,7 @@ class AdvancedPolarsProcessor:
         # 3. Análise de vendas por categoria e região
         sales_summary = joined_df.group_by(["category", "region"]).agg(
             pl.sum("total_sale_value").alias("total_revenue"),
-            pl.count().alias("number_of_orders"),
+            pl.len().alias("number_of_orders"),
             pl.mean("quantity").alias("avg_quantity_per_order")
         ).sort(pl.col("total_revenue"), descending=True)
 
