@@ -55,7 +55,7 @@ class PolarsDataProcessor:
             pl.col(agg_col).min().alias(f"min_{agg_col}"),
             pl.col(agg_col).max().alias(f"max_{agg_col}"),
             pl.col(agg_col).std().alias(f"std_{agg_col}"),
-            pl.count().alias("count")
+            pl.len().alias("count")
         ).sort(group_col)
 
     def add_derived_columns(self, df: pl.DataFrame) -> pl.DataFrame:
@@ -126,5 +126,5 @@ class PolarsDataProcessor:
         sql_context = pl.SQLContext()
         for table_name, df in df_map.items():
             sql_context.register(table_name, df)
-        return sql_context.execute(query).fetch()
+        return sql_context.execute(query).collect()
 
