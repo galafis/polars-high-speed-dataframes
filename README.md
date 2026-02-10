@@ -2,7 +2,6 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white)
 ![Polars](https://img.shields.io/badge/DataFrames-Polars-FF4500?style=for-the-badge&logo=polars&logoColor=white)
-![Tests](https://github.com/galafis/polars-high-speed-dataframes/actions/workflows/tests.yml/badge.svg?style=for-the-badge)
 ![Mermaid](https://img.shields.io/badge/Diagrams-Mermaid-orange?style=for-the-badge&logo=mermaid&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/galafis/polars-high-speed-dataframes?style=for-the-badge)
@@ -95,9 +94,6 @@ The main objective of this project is to **provide practical examples, benchmark
 
 ```
 polars-high-speed-dataframes/
-├── .github/
-│   └── workflows/
-│       └── tests.yml              # GitHub Actions CI/CD para testes automáticos
 ├── src/
 │   ├── core/                      # Módulos principais com a lógica central do Polars
 │   │   ├── __init__.py
@@ -129,7 +125,6 @@ polars-high-speed-dataframes/
 - **`src/examples/advanced_example.py`**: Demonstrações de casos de uso reais com dados simulados
 - **`examples/basic_usage_example.py`**: Tutorial interativo com exemplos práticos
 - **`tests/`**: Suite de testes completa com pytest e cobertura de código
-- **`.github/workflows/tests.yml`**: Pipeline CI/CD que executa testes em múltiplas versões do Python
 
 ---
 
