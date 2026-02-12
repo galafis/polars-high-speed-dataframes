@@ -70,7 +70,7 @@ class PolarsDataProcessor:
             pl.when(pl.col("age") < 30).then(pl.lit("Young"))
             .when(pl.col("age") < 50).then(pl.lit("Adult"))
             .otherwise(pl.lit("Senior")).alias("age_group"),
-            (pl.col("monthly_salary") * 12).alias("annual_salary").fill_null(0) # Exemplo de tratamento de nulos
+            (pl.col("monthly_salary") * 12).fill_null(0).alias("annual_salary")
         )
 
     def apply_window_function(self, df: pl.DataFrame, partition_col: str, order_col: str, target_col: str) -> pl.DataFrame:

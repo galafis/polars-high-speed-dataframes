@@ -6,8 +6,6 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/galafis/polars-high-speed-dataframes?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/galafis/polars-high-speed-dataframes?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/galafis/polars-high-speed-dataframes?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/galafis/polars-high-speed-dataframes?style=for-the-badge)
 
 ---
 
@@ -25,27 +23,25 @@ O principal objetivo deste projeto é **fornecer exemplos práticos, benchmarks 
 - **Transformações Complexas e Expressões Avançadas**: Exemplos de como aplicar transformações de dados sofisticadas, incluindo agregação, filtragem e criação de novas colunas usando a poderosa sintaxe de expressões do Polars.
 - **Avaliação Lazy (Lazy Evaluation)**: Exploração do paradigma de avaliação lazy do Polars, que permite a construção de planos de consulta otimizados, resultando em melhor performance e menor consumo de memória.
 - **Operações de Join e Correlação**: Demonstrações de como realizar operações de join entre DataFrames e calcular correlações entre colunas, essenciais para análise de dados e engenharia de features.
-- **Performance Excepcional**: Polars supera outras bibliotecas em velocidade e uso de memória para operações comuns de DataFrame, graças à sua implementação em Rust e paralelismo nativo.
+- **Performance**: Polars é consideravelmente mais rápido que o Pandas para muitas operações comuns de DataFrame, graças à sua implementação em Rust e paralelismo nativo.
 - **API Intuitiva**: Exemplos que mostram a simplicidade e expressividade da API do Polars, facilitando a transição para usuários de Pandas.
-- **Código Profissional**: Exemplos de código bem estruturados, seguindo as melhores práticas da indústria, com foco em modularidade, reusabilidade e manutenibilidade.
-- **Documentação Completa**: Cada exemplo é acompanhado de documentação detalhada, benchmarks e casos de uso práticos para facilitar a compreensão e a aplicação.
 - **Módulo de Exemplo Avançado**: Um novo módulo (`advanced_example.py`) foi adicionado para demonstrar funcionalidades mais complexas e cenários de uso real, incluindo geração de dados simulados, processamento de vendas e análise de clientes.
 
-### 🚀 Benefícios do Polars em Ação
+### 🚀 Por que Polars?
 
-O Polars oferece uma série de vantagens que o tornam uma escolha superior para processamento de dados de alta performance. Este projeto ilustra como esses benefícios são explorados:
+Polars traz vantagens concretas para quem trabalha com grandes volumes de dados:
 
-1.  **Velocidade Incomparável:** Construído em Rust, o Polars aproveita a segurança de memória e a performance nativa para executar operações de DataFrame em velocidades impressionantes, superando o Pandas em muitos cenários, especialmente em I/O e transformações complexas.
+1.  **Velocidade:** Construído em Rust, o Polars consegue executar operações de DataFrame significativamente mais rápido que o Pandas, especialmente em I/O e transformações complexas.
 
-2.  **Processamento Paralelo:** Utiliza todos os núcleos da CPU disponíveis por padrão, permitindo o processamento paralelo de dados sem a necessidade de configuração manual complexa, o que é evidente em operações de agregação e transformação.
+2.  **Processamento Paralelo:** Utiliza todos os núcleos da CPU disponíveis por padrão, sem necessidade de configuração manual.
 
-3.  **Avaliação Lazy (Lazy Evaluation):** Permite a construção de planos de consulta otimizados, onde as operações são executadas apenas quando os resultados são realmente necessários, economizando recursos e tempo, como demonstrado na função `complex_lazy_evaluation`.
+3.  **Avaliação Lazy:** Permite a construção de planos de consulta otimizados, executando operações apenas quando os resultados são necessários.
 
-4.  **Eficiência de Memória:** Projetado para ser eficiente no uso de memória, o Polars pode lidar com datasets maiores do que o Pandas em máquinas com recursos limitados, tornando-o ideal para grandes volumes de dados.
+4.  **Eficiência de Memória:** Projetado para lidar com datasets maiores que a memória disponível, usando streaming e otimizações internas.
 
-5.  **API Expressiva:** Oferece uma API intuitiva e poderosa, que combina a facilidade de uso do Pandas com a performance de ferramentas de processamento distribuído, facilitando a escrita de código limpo e eficiente.
+5.  **API Expressiva:** Combina facilidade de uso com performance, facilitando a escrita de código limpo e eficiente.
 
-6.  **Integração com Arrow:** Baseado no Apache Arrow, o Polars garante interoperabilidade eficiente com outras ferramentas do ecossistema de dados, minimizando a cópia de dados e otimizando o fluxo de trabalho.
+6.  **Integração com Arrow:** Baseado no Apache Arrow, permitindo interoperabilidade com outras ferramentas do ecossistema de dados.
 
 ---
 
@@ -63,10 +59,8 @@ The main objective of this project is to **provide practical examples, benchmark
 - **Complex Transformations and Advanced Expressions**: Examples of how to apply sophisticated data transformations, including aggregation, filtering, and creating new columns using Polars' powerful expression syntax.
 - **Lazy Evaluation**: Exploration of Polars' lazy evaluation paradigm, which allows for the construction of optimized query plans, resulting in better performance and lower memory consumption.
 - **Join and Correlation Operations**: Demonstrations of how to perform join operations between DataFrames and calculate correlations between columns, essential for data analysis and feature engineering.
-- **Exceptional Performance**: Polars outperforms other libraries in speed and memory usage for common DataFrame operations, thanks to its Rust implementation and native parallelism.
+- **Performance**: Polars is considerably faster than Pandas for many common DataFrame operations, thanks to its Rust implementation and native parallelism.
 - **Intuitive API**: Examples showcasing the simplicity and expressiveness of the Polars API, making it easy for Pandas users to transition.
-- **Professional Code**: Well-structured code examples, following industry best practices, with a focus on modularity, reusability, and maintainability.
-- **Complete Documentation**: Each example is accompanied by detailed documentation, benchmarks, and practical use cases to facilitate understanding and application.
 - **Advanced Example Module**: A new module (`advanced_example.py`) has been added to demonstrate more complex functionalities and real-world use cases, including simulated data generation, sales processing, and customer analysis.
 
 ### 📊 Visualization
@@ -104,7 +98,7 @@ polars-high-speed-dataframes/
 │   └── __init__.py                # Permite importações de módulos internos
 ├── examples/
 │   └── basic_usage_example.py     # Script interativo com 6 exemplos práticos
-├── tests/                         # Suite completa de testes (16 testes, 81% cobertura)
+├── tests/                         # Suite de testes automatizados
 │   ├── test_polars_demo.py        # 11 testes para PolarsDataProcessor
 │   └── test_advanced_example.py   # 5 testes para AdvancedPolarsProcessor
 ├── diagrams/                      # Diagramas Mermaid e imagens geradas
@@ -263,7 +257,7 @@ python -m pytest tests/test_advanced_example.py -v
 
 ### Cobertura de Testes / Test Coverage
 
-O projeto mantém uma cobertura de testes de **>80%** para garantir que todas as funcionalidades principais estão validadas. Relatórios de cobertura são gerados automaticamente no diretório `htmlcov/`.
+Relatórios de cobertura podem ser gerados no diretório `htmlcov/` usando o comando acima.
 
 ---
 
@@ -288,15 +282,7 @@ O projeto mantém uma cobertura de testes de **>80%** para garantir que todas as
 
 ### Comparação com Pandas / Comparison with Pandas
 
-| Operação                | Pandas | Polars | Melhoria    |
-|-------------------------|--------|--------|-------------|
-| Leitura CSV (1GB)       | 8.2s   | 2.1s   | **~4x**     |
-| Group By + Aggregation  | 3.5s   | 0.9s   | **~4x**     |
-| Join de 2 tabelas       | 5.8s   | 1.2s   | **~5x**     |
-| Filter + Transform      | 2.3s   | 0.5s   | **~4.6x**   |
-| Escrita Parquet         | 4.1s   | 0.8s   | **~5x**     |
-
-*Benchmarks executados em Intel i7-10700K, 32GB RAM, dataset com 10 milhões de linhas*
+Polars tende a ser significativamente mais rápido que o Pandas para operações como leitura de CSV, agregações com group_by, joins, e transformações em geral, com ganhos que variam dependendo do tamanho do dataset e do hardware utilizado. Para benchmarks detalhados e atualizados, consulte a [documentação oficial do Polars](https://pola.rs/) e o [benchmark H2O.ai](https://h2oai.github.io/db-benchmark/).
 
 ---
 
@@ -461,7 +447,7 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 🚦 Status do Projeto / Project Status
 
-Este projeto está em **desenvolvimento ativo** e totalmente funcional para uso em produção.
+Este projeto é um conjunto de exemplos e demonstrações do uso do Polars para processamento de dados.
 
 ### ✅ Funcionalidades Implementadas / Implemented Features
 
@@ -473,9 +459,8 @@ Este projeto está em **desenvolvimento ativo** e totalmente funcional para uso 
 - [x] Joins entre DataFrames
 - [x] Execução de queries SQL
 - [x] Avaliação lazy para otimização
-- [x] Suite completa de testes (16 testes, 81% cobertura)
-- [x] CI/CD com GitHub Actions
-- [x] Documentação completa em PT-BR e EN
+- [x] Suite de testes automatizados
+- [x] Documentação em PT-BR e EN
 - [x] Exemplos práticos e tutoriais
 - [x] Demonstração completa integrada
 
@@ -494,11 +479,8 @@ Este projeto está em **desenvolvimento ativo** e totalmente funcional para uso 
 
 ## 📊 Estatísticas do Projeto / Project Statistics
 
-- **Linhas de Código**: ~1,500+
-- **Testes**: 16 testes automatizados
-- **Cobertura**: 81%
-- **Python**: 3.9, 3.10, 3.11, 3.12
-- **Dependências**: 3 principais (polars, pytest, pytest-cov)
+- **Python**: 3.9+
+- **Dependências**: polars, pytest, pytest-cov
 - **Licença**: MIT
 
 ---
@@ -514,5 +496,5 @@ Este projeto está em **desenvolvimento ativo** e totalmente funcional para uso 
 **Autor:** Gabriel Demetrios Lafis  
 **Ano:** 2025  
 **Licença:** MIT  
-**Status:** ✅ Em produção e desenvolvimento ativo
+**Status:** Funcional
 
