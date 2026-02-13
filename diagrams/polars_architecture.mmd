@@ -1,6 +1,0 @@
-graph LR
-    DATA[Raw Data] --> POLARS[Polars DataFrame]
-    POLARS --> LAZY[Lazy Evaluation]
-    LAZY --> OPTIMIZE[Query Optimizer]
-    OPTIMIZE --> EXEC[Parallel Execution]
-    EXEC --> RESULT[Results]

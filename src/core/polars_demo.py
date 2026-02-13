@@ -10,8 +10,7 @@ e uso de expressões avançadas.
 """
 
 import polars as pl
-from typing import Dict, Any, List, Optional
-import os
+from typing import Dict, Any, Optional
 
 class PolarsDataProcessor:
     """
@@ -29,7 +28,6 @@ class PolarsDataProcessor:
     def write_csv(self, df: pl.DataFrame, file_path: str, **kwargs):
         """Escreve um DataFrame Polars para um arquivo CSV."""
         df.write_csv(file_path, **kwargs)
-        print(f"✓ DataFrame escrito para CSV: {file_path}")
 
     def read_parquet(self, file_path: str, **kwargs) -> pl.DataFrame:
         """Lê dados de um arquivo Parquet para um DataFrame Polars."""
@@ -38,7 +36,6 @@ class PolarsDataProcessor:
     def write_parquet(self, df: pl.DataFrame, file_path: str, **kwargs):
         """Escreve um DataFrame Polars para um arquivo Parquet."""
         df.write_parquet(file_path, **kwargs)
-        print(f"✓ DataFrame escrito para Parquet: {file_path}")
 
     def filter_by_condition(self, df: pl.DataFrame, condition: pl.Expr) -> pl.DataFrame:
         """Filtra o DataFrame usando uma expressão Polars."""
@@ -75,40 +72,46 @@ class PolarsDataProcessor:
 
     def apply_window_function(self, df: pl.DataFrame, partition_col: str, order_col: str, target_col: str) -> pl.DataFrame:
         """
-        Aplica uma função de janela (ex: média móvel, rank) a um DataFrame.
-        Calcula a média móvel de `target_col` particionada por `partition_col` e ordenada por `order_col`.
+        Aplica uma funcao de janela (media movel, rank) a um DataFrame.
+        Ordena por partition_col e order_col ANTES de aplicar rolling_mean
+        para garantir resultados deterministicos.
         """
-        return df.with_columns(
+        return df.sort(partition_col, order_col).with_columns(
             pl.col(target_col).rolling_mean(window_size=2).over(partition_col).alias(f"rolling_mean_{target_col}"),
             pl.col(target_col).rank().over(partition_col).alias(f"rank_{target_col}")
-        ).sort(partition_col, order_col)
+        )
 
-    def handle_missing_data(self, df: pl.DataFrame, strategy: str = "mean", column: str = None) -> pl.DataFrame:
+    def handle_missing_data(self, df: pl.DataFrame, strategy: str = "mean", column: Optional[str] = None) -> pl.DataFrame:
         """
-        Lida com dados ausentes usando diferentes estratégias (média, mediana, moda, preenchimento com valor).
+        Lida com dados ausentes na coluna especificada usando diferentes estrategias.
         """
         if column is None:
-            print("Aviso: Nenhuma coluna especificada para tratamento de nulos. Retornando DataFrame original.")
             return df
 
         if strategy == "mean":
             mean_val = df.select(pl.col(column).mean()).item()
-            return df.fill_null(mean_val)
+            return df.with_columns(pl.col(column).fill_null(mean_val))
         elif strategy == "median":
             median_val = df.select(pl.col(column).median()).item()
-            return df.fill_null(median_val)
+            return df.with_columns(pl.col(column).fill_null(median_val))
         elif strategy == "mode":
-            # Polars não tem um método direto para moda, mas pode ser feito com value_counts
-            mode_val = df.group_by(column).len().sort(pl.col("len"), descending=True).select(pl.col(column)).item()
-            return df.fill_null(mode_val)
+            mode_val = (
+                df.select(pl.col(column))
+                .drop_nulls()
+                .to_series()
+                .value_counts()
+                .sort("count", descending=True)
+                .get_column(column)
+                .item(0)
+            )
+            return df.with_columns(pl.col(column).fill_null(mode_val))
         elif strategy == "forward_fill":
-            return df.fill_null(strategy="forward")
+            return df.with_columns(pl.col(column).forward_fill())
         elif strategy == "backward_fill":
-            return df.fill_null(strategy="backward")
+            return df.with_columns(pl.col(column).backward_fill())
         elif strategy == "drop":
             return df.drop_nulls(subset=[column])
         else:
-            print(f"Estratégia de tratamento de nulos desconhecida: {strategy}. Retornando DataFrame original.")
             return df
 
     def perform_join(self, df1: pl.DataFrame, df2: pl.DataFrame, on_col: str, how: str = "inner") -> pl.DataFrame:
