@@ -1,291 +1,207 @@
-# 📊 Polars High Speed Dataframes
+# Polars - Demonstracao de DataFrames de Alta Performance
 
-> High-performance data analysis toolkit using Polars. Implements blazing-fast DataFrame operations, lazy evaluation, and parallel processing for large-scale data workflows.
+Projeto demonstrativo do uso da biblioteca Polars para processamento de dados em Python. Implementa uma classe wrapper com operacoes comuns: leitura/escrita CSV e Parquet, filtragem, estatisticas agrupadas, colunas derivadas, funcoes de janela, tratamento de nulos, joins e queries SQL.
 
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg)](https://img.shields.io/badge/)
-[![Polars](https://img.shields.io/badge/Polars-0.20-CD792C.svg)](https://img.shields.io/badge/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB.svg)](https://python.org)
+[![Polars](https://img.shields.io/badge/Polars-DataFrame-CD792C.svg)](https://pola.rs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[English](#english) | [Português](#português)
+[English](#english)
+
+---
+
+## Indice
+
+- [Visao Geral](#visao-geral)
+- [Arquitetura](#arquitetura)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Como Usar](#como-usar)
+- [Testes](#testes)
+- [Autor](#autor)
+
+## Visao Geral
+
+Este repositorio contem uma classe `PolarsDataProcessor` que encapsula operacoes comuns do Polars, e um exemplo avancado (`AdvancedPolarsProcessor`) que gera dados de vendas sinteticos e demonstra agregacoes, joins e analises.
+
+**Funcionalidades implementadas:**
+
+- Leitura e escrita de CSV e Parquet
+- Filtragem com expressoes Polars
+- Estatisticas agrupadas (media, mediana, min, max, desvio padrao)
+- Colunas derivadas (concatenacao, categorizacao, calculos)
+- Funcoes de janela (media movel, rank por particao)
+- Tratamento de nulos (media, mediana, moda, forward/backward fill, drop)
+- Joins entre DataFrames
+- Queries SQL via `pl.SQLContext`
+
+## Arquitetura
+
+```mermaid
+graph TD
+    subgraph Core["Core"]
+        PDP[PolarsDataProcessor<br/>src/core/polars_demo.py]
+    end
+
+    subgraph Exemplos["Exemplos"]
+        APP[AdvancedPolarsProcessor<br/>src/examples/advanced_example.py]
+        BUE[basic_usage_example.py<br/>examples/]
+    end
+
+    subgraph Entrada["Entrada/Saida"]
+        CSV[CSV]
+        PQ[Parquet]
+        SQL[SQL Queries]
+    end
+
+    PDP -->|le/escreve| CSV
+    PDP -->|le/escreve| PQ
+    PDP -->|executa| SQL
+    APP --> PDP
+    BUE --> PDP
+
+    RD[run_demo.py] --> PDP
+    RD --> APP
+```
+
+## Estrutura do Projeto
+
+```
+polars-high-speed-dataframes/
+├── src/
+│   ├── __init__.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── polars_demo.py         # PolarsDataProcessor (classe principal)
+│   └── examples/
+│       ├── __init__.py
+│       └── advanced_example.py    # AdvancedPolarsProcessor (demo avancado)
+├── examples/
+│   └── basic_usage_example.py     # Exemplo basico de uso
+├── tests/
+│   ├── test_polars_demo.py        # Testes da classe principal
+│   └── test_advanced_example.py   # Testes do exemplo avancado
+├── run_demo.py                    # Script de demonstracao
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+## Como Usar
+
+```bash
+# Clonar o repositorio
+git clone https://github.com/galafis/polars-high-speed-dataframes.git
+cd polars-high-speed-dataframes
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Executar demonstracao
+python run_demo.py
+
+# Executar exemplo basico
+python examples/basic_usage_example.py
+```
+
+## Testes
+
+```bash
+# Executar todos os testes
+pytest tests/ -v
+
+# Com cobertura
+pytest tests/ --cov=src --cov-report=term
+```
+
+## Autor
+
+**Gabriel Demetrios Lafis**
+- GitHub: [@galafis](https://github.com/galafis)
+- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+
+## Licenca
+
+Este projeto esta licenciado sob a Licenca MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
 ## English
 
-### 🎯 Overview
+# Polars - High-Performance DataFrame Demo
 
-**Polars High Speed Dataframes** is a production-grade Python application that showcases modern software engineering practices including clean architecture, comprehensive testing, containerized deployment, and CI/CD readiness.
+A demonstration project showcasing the Polars library for data processing in Python. Implements a wrapper class with common operations: CSV and Parquet I/O, filtering, grouped statistics, derived columns, window functions, null handling, joins, and SQL queries.
 
-The codebase comprises **955 lines** of source code organized across **9 modules**, following industry best practices for maintainability, scalability, and code quality.
+### Overview
 
-### ✨ Key Features
+This repository contains a `PolarsDataProcessor` class that wraps common Polars operations, and an advanced example (`AdvancedPolarsProcessor`) that generates synthetic sales data and demonstrates aggregations, joins, and analysis.
 
-- **🔄 Data Pipeline**: Scalable ETL with parallel processing
-- **✅ Data Validation**: Schema validation and quality checks
-- **📊 Monitoring**: Pipeline health metrics and alerting
-- **🔧 Configurability**: YAML/JSON-based pipeline configuration
-- **🏗️ Object-Oriented**: 4 core classes with clean architecture
+**Implemented features:**
 
-### 🏗️ Architecture
+- CSV and Parquet read/write
+- Filtering with Polars expressions
+- Grouped statistics (mean, median, min, max, std)
+- Derived columns (concatenation, categorization, calculations)
+- Window functions (rolling mean, rank by partition)
+- Null handling (mean, median, mode, forward/backward fill, drop)
+- DataFrame joins
+- SQL queries via `pl.SQLContext`
 
-```mermaid
-graph TB
-    subgraph Core["🏗️ Core"]
-        A[Main Module]
-        B[Business Logic]
-        C[Data Processing]
-    end
-    
-    subgraph Support["🔧 Support"]
-        D[Configuration]
-        E[Utilities]
-        F[Tests]
-    end
-    
-    A --> B --> C
-    D --> A
-    E --> B
-    F -.-> B
-    
-    style Core fill:#e1f5fe
-    style Support fill:#f3e5f5
-```
+### Architecture
 
 ```mermaid
-classDiagram
-    class PolarsDataProcessor
-    class AdvancedPolarsProcessor
+graph TD
+    subgraph Core["Core"]
+        PDP[PolarsDataProcessor<br/>src/core/polars_demo.py]
+    end
+
+    subgraph Examples["Examples"]
+        APP[AdvancedPolarsProcessor<br/>src/examples/advanced_example.py]
+        BUE[basic_usage_example.py<br/>examples/]
+    end
+
+    subgraph IO["Input/Output"]
+        CSV[CSV]
+        PQ[Parquet]
+        SQL[SQL Queries]
+    end
+
+    PDP -->|reads/writes| CSV
+    PDP -->|reads/writes| PQ
+    PDP -->|executes| SQL
+    APP --> PDP
+    BUE --> PDP
+
+    RD[run_demo.py] --> PDP
+    RD --> APP
 ```
 
-### 🚀 Quick Start
-
-#### Prerequisites
-
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
+### Usage
 
 ```bash
 # Clone the repository
 git clone https://github.com/galafis/polars-high-speed-dataframes.git
 cd polars-high-speed-dataframes
 
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
 # Install dependencies
 pip install -r requirements.txt
+
+# Run demo
+python run_demo.py
+
+# Run basic example
+python examples/basic_usage_example.py
 ```
 
-#### Running
-
-```bash
-# Run the application
-python src/main.py
-```
-
-### 🧪 Testing
+### Tests
 
 ```bash
 # Run all tests
-pytest
+pytest tests/ -v
 
-# Run with coverage report
-pytest --cov --cov-report=html
-
-# Run specific test module
-pytest tests/test_main.py -v
-
-# Run with detailed output
-pytest -v --tb=short
+# With coverage
+pytest tests/ --cov=src --cov-report=term
 ```
 
-### 📁 Project Structure
-
-```
-polars-high-speed-dataframes/
-├── data/
-├── diagrams/
-├── examples/
-│   └── basic_usage_example.py
-├── images/
-├── src/          # Source code
-│   ├── core/          # Core configuration
-│   │   ├── __init__.py
-│   │   └── polars_demo.py
-│   ├── examples/
-│   │   ├── __init__.py
-│   │   └── advanced_example.py
-│   └── __init__.py
-├── tests/         # Test suite
-│   ├── test_advanced_example.py
-│   └── test_polars_demo.py
-├── LICENSE
-├── README.md
-├── requirements.txt
-└── run_demo.py
-```
-
-### 🛠️ Tech Stack
-
-| Technology | Description | Role |
-|------------|-------------|------|
-| **Python** | Core Language | Primary |
-| **Polars** | High-speed DataFrames | Framework |
-
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### 📄 License
+### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### 👤 Author
-
-**Gabriel Demetrios Lafis**
-- GitHub: [@galafis](https://github.com/galafis)
-- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
-
----
-
-## Português
-
-### 🎯 Visão Geral
-
-**Polars High Speed Dataframes** é uma aplicação Python de nível profissional que demonstra práticas modernas de engenharia de software, incluindo arquitetura limpa, testes abrangentes, implantação containerizada e prontidão para CI/CD.
-
-A base de código compreende **955 linhas** de código-fonte organizadas em **9 módulos**, seguindo as melhores práticas do setor para manutenibilidade, escalabilidade e qualidade de código.
-
-### ✨ Funcionalidades Principais
-
-- **🔄 Data Pipeline**: Scalable ETL with parallel processing
-- **✅ Data Validation**: Schema validation and quality checks
-- **📊 Monitoring**: Pipeline health metrics and alerting
-- **🔧 Configurability**: YAML/JSON-based pipeline configuration
-- **🏗️ Object-Oriented**: 4 core classes with clean architecture
-
-### 🏗️ Arquitetura
-
-```mermaid
-graph TB
-    subgraph Core["🏗️ Core"]
-        A[Main Module]
-        B[Business Logic]
-        C[Data Processing]
-    end
-    
-    subgraph Support["🔧 Support"]
-        D[Configuration]
-        E[Utilities]
-        F[Tests]
-    end
-    
-    A --> B --> C
-    D --> A
-    E --> B
-    F -.-> B
-    
-    style Core fill:#e1f5fe
-    style Support fill:#f3e5f5
-```
-
-### 🚀 Início Rápido
-
-#### Prerequisites
-
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/galafis/polars-high-speed-dataframes.git
-cd polars-high-speed-dataframes
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-#### Running
-
-```bash
-# Run the application
-python src/main.py
-```
-
-### 🧪 Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov --cov-report=html
-
-# Run specific test module
-pytest tests/test_main.py -v
-
-# Run with detailed output
-pytest -v --tb=short
-```
-
-### 📁 Estrutura do Projeto
-
-```
-polars-high-speed-dataframes/
-├── data/
-├── diagrams/
-├── examples/
-│   └── basic_usage_example.py
-├── images/
-├── src/          # Source code
-│   ├── core/          # Core configuration
-│   │   ├── __init__.py
-│   │   └── polars_demo.py
-│   ├── examples/
-│   │   ├── __init__.py
-│   │   └── advanced_example.py
-│   └── __init__.py
-├── tests/         # Test suite
-│   ├── test_advanced_example.py
-│   └── test_polars_demo.py
-├── LICENSE
-├── README.md
-├── requirements.txt
-└── run_demo.py
-```
-
-### 🛠️ Stack Tecnológica
-
-| Tecnologia | Descrição | Papel |
-|------------|-----------|-------|
-| **Python** | Core Language | Primary |
-| **Polars** | High-speed DataFrames | Framework |
-
-### 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
-
-### 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-### 👤 Autor
-
-**Gabriel Demetrios Lafis**
-- GitHub: [@galafis](https://github.com/galafis)
-- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
